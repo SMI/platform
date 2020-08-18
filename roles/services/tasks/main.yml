@@ -1,0 +1,21 @@
+---
+- name: Set the services_rev_dir fact
+  set_fact:
+      services_rev_dir: "{{ home_dir }}/SmiServices-{{ services_rev }}"
+
+- name: Check if the services already exist
+  stat:
+      path: "{{ services_rev_dir }}"
+  register: services_stat
+
+# TODO(rkm 2020-08-15) Allow overriding
+- name: Include the download_services task if required
+  include_tasks: download_services.yml
+  when: not services_stat.stat.exists
+
+- name: Create symlink to SmiServices
+  file:
+      src: "{{ services_rev_dir }}"
+      dest: "{{ home_dir }}/SmiServices"
+      state: link
+      mode: "0770" # Check this

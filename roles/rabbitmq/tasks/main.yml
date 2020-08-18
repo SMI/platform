@@ -1,0 +1,34 @@
+---
+# TODO(rkm 2020-08-15) User setup
+
+- name: decide on container install
+  set_fact:
+      rabbitmq_container_install: "{{ all_as_containers or rabbitmq_as_container }}"
+
+- name: include run as container task
+  include_tasks: container.yml
+  when: rabbitmq_container_install
+
+- name: include full install task
+  include_tasks: full_install.yml
+  when: not rabbitmq_container_install
+
+- name: upload the smi_data_load config
+  uri:
+      url: http://127.0.0.1:15672/api/definitions
+      method: POST
+      body: "{{ lookup('file', 'smi_data_load_config.json') }}"
+      body_format: json
+      user: guest
+      password: guest
+      status_code: 204
+
+- name: upload the smi_extraction config
+  uri:
+      url: http://127.0.0.1:15672/api/definitions
+      method: POST
+      body: "{{ lookup('file', 'smi_extraction_config.json') }}"
+      body_format: json
+      user: guest
+      password: guest
+      status_code: 204

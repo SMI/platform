@@ -1,0 +1,15 @@
+- hosts: all
+  roles:
+      - role: common
+
+- hosts: services
+  roles:
+      - role: services
+
+- hosts: rabbitmq_servers
+  roles:
+      - role: rabbitmq
+
+- hosts: mongod_servers
+  roles:
+      - role: mongod

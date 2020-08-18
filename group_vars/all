@@ -1,0 +1,13 @@
+# Defines which environment we are deploying
+deploy_environment: test
+
+home_dir_prefix: /home/smi
+primary_group_name: smi
+
+services_rev: v1.11.1
+
+# Not sure if this needs to be global
+package_lock_timeout: 180
+
+# TODO
+all_as_containers: false

@@ -1,0 +1,23 @@
+---
+# This role deploys the mongod process
+
+- name: include user task
+  include_tasks: user.yml
+
+- name: include dirs task
+  include_tasks: dirs.yml
+
+- name: create mongod.conf
+  template:
+      src: mongod.conf.j2
+      dest: /etc/mongod.conf
+      mode: "0660"
+  register: config_result
+
+# TODO:
+# notify:
+#   - mongodb restart
+#   - wait when mongodb is started
+
+- name: include install.yml
+  include_tasks: install.yml

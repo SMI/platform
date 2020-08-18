@@ -1,0 +1,23 @@
+---
+mongodb_package_name: mongodb-org
+mongodb_package_state: present
+mongodb_package_version: "4.4"
+
+mongod_user: mongod
+mongod_uid: 875
+mongod_gid: 875
+mongod_daemon_name: mongod
+
+# TODO prefix
+mongod_datadir: /home/smi/data/mongod
+
+# net options
+mongod_net_bindip: 127.0.0.1
+mongod_net_http_enabled: false
+mongod_net_ipv6: true
+mongod_net_maxconns: 255
+mongod_net_port: 27017
+
+# replication options
+monogd_repl_set_name: rs0
+mongod_replication_oplogsize: 1024

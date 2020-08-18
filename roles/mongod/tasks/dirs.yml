@@ -1,0 +1,18 @@
+---
+# MongoDB directory setup
+
+- name: ensure mongod_datadir
+  file:
+      path: "{{ mongod_datadir }}"
+      state: directory
+      owner: "{{ mongod_user }}"
+      group: "{{ mongod_user }}"
+      mode: "2770"
+
+- name: ensure /var/log/mongo
+  file:
+      path: /var/log/mongo
+      state: directory
+      owner: "{{ mongod_user }}"
+      group: "{{ mongod_user }}"
+      mode: "2770"

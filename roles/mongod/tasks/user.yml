@@ -1,0 +1,26 @@
+---
+# MongoDB user setup
+
+- name: create mongodb group
+  group:
+      name: "{{ mongod_user }}"
+      state: present
+
+- name: set mongod gid
+  group:
+      name: "{{ mongod_user }}"
+      gid: "{{ mongod_gid }}"
+      state: present
+
+- name: create the mongod user
+  user:
+      name: "{{ mongod_user }}"
+      group: "{{ mongod_user }}"
+      state: present
+
+- name: set mongod uid
+  user:
+      name: "{{ mongod_user }}"
+      uid: "{{ mongod_uid }}"
+      group: "{{ mongod_user }}"
+      state: present

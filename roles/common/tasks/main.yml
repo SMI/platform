@@ -1,0 +1,26 @@
+---
+- name: ensure primary_group_name group exists
+  become: true
+  group:
+      name: "{{ primary_group_name }}"
+      state: present
+
+- name: set the home dir fact
+  set_fact:
+      home_dir: "{{ home_dir_prefix }}/{{ primary_group_name }}"
+
+- name: ensure home_dir exists
+  file:
+      path: "{{ home_dir }}"
+      state: directory
+      # owner: "{{ primary_group_name }}"
+      group: "{{ primary_group_name }}"
+      mode: ug+rwx,o-rwx,g+s
+
+- name: template the master .env file
+  template:
+      src: env.j2
+      dest: "{{ home_dir }}/{{ deploy_environment }}.env"
+      # owner: "{{ primary_group_name }}"
+      group: "{{ primary_group_name }}"
+      mode: "0550"

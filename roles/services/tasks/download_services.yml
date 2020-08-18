@@ -1,0 +1,29 @@
+---
+- name: Create temporary download directory
+  tempfile:
+      state: directory
+  register: tempfile
+
+- name: Download and unpack SmiServices
+  unarchive:
+      src: https://github.com/SMI/SmiServices/releases/download/{{ services_rev }}/smi-services-linux-x64-{{ services_rev }}.tar.gz
+      dest: "{{ tempfile.path }}"
+      remote_src: yes
+      mode: "0770" # Don't really care
+
+- name: Create the services_rev_dir directory
+  file:
+      path: "{{ services_rev_dir }}"
+      state: directory
+      mode: "2770"
+
+- name: Move the archive to services_rev_dir
+  synchronize:
+      # NOTE(rkm 2020-08-15) Trailing slash is needed
+      src: "{{ tempfile.path }}/linux-x64/"
+      dest: "{{ services_rev_dir }}"
+
+- name: Delete the tempdir
+  file:
+      path: "{{ tempfile.path }}"
+      state: absent

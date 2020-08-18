@@ -1,0 +1,28 @@
+---
+# TODO(rkm 2020-08-15) Convert this (and all container) tasks to rootless podman
+
+- name: pull the rabbitmq image
+  docker_image:
+      name: "rabbitmq:{{ rabbitmq_server_version }}-management"
+      source: pull
+
+- name: ensure container is started
+  docker_container:
+      name: rabbitmq
+      state: started
+      image: "rabbitmq:{{ rabbitmq_server_version }}-management"
+      ports:
+          - "127.0.0.1:5672:5672/tcp"
+          - "127.0.0.1:15672:15672/tcp"
+      healthcheck:
+          test:
+              [
+                  "curl",
+                  "-i",
+                  "-u",
+                  "guest:guest",
+                  "http://127.0.0.1:15672/api/vhosts",
+              ]
+          interval: 5s
+          retries: 5
+          start_period: 5s

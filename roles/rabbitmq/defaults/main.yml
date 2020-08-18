@@ -1,0 +1,5 @@
+---
+# TODO(rkm 2020-08-15) Make this match the live system
+rabbitmq_server_version: 3.8.6
+
+rabbitmq_as_container: true

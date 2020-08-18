@@ -1,0 +1,50 @@
+---
+# See https://pre-commit.com for more information
+# # See https://pre-commit.com/hooks.html for more hooks
+
+default_language_version:
+    python: python3.6
+
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v3.2.0
+      hooks:
+          # General
+          - id: check-added-large-files
+          - id: check-case-conflict
+          - id: check-json
+          - id: check-merge-conflict
+          - id: check-yaml
+          - id: detect-private-key
+          - id: end-of-file-fixer
+          - id: mixed-line-ending
+          - id: pretty-format-json
+            args: [--autofix, --indent=4]
+          - id: trailing-whitespace
+      # General
+    - repo: meta
+      hooks:
+          - id: check-hooks-apply
+          - id: check-useless-excludes
+    - repo: https://github.com/codespell-project/codespell
+      rev: v1.17.1
+      hooks:
+          - id: codespell
+            args: [--ignore-words, .meta/codespell-ignores]
+    - repo: https://github.com/prettier/prettier
+      rev: "2.0.5"
+      hooks:
+          - id: prettier
+            args: [--config, .meta/prettierrc.json]
+    - repo: https://github.com/adrienverge/yamllint
+      rev: v1.24.2
+      hooks:
+          - id: yamllint
+            args: [-c, .meta/yamllint.yaml]
+      # Ansible
+      # TODO(rkm 2020-08-18) Can we force rwx permissions over octal?
+    - repo: https://github.com/ansible/ansible-lint.git
+      rev: v4.3.0
+      hooks:
+          - id: ansible-lint
+            files: \.(yaml|yml)$

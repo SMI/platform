@@ -1,0 +1,24 @@
+---
+# MongoDB install
+
+# template the repo
+# install
+# start
+# replication
+
+- name: Add package repo
+  template:
+      src: mongodb.repo.j2
+      dest: /etc/yum.repos.d/{{ mongodb_package_name }}-{{ mongodb_package_version }}.repo
+      mode: 0644
+
+- name: install mongod
+  package:
+      name: "{{ mongodb_package_name }}"
+      state: present
+      lock_timeout: "{{ package_lock_timeout }}"
+
+- name: ensure mongod running
+  systemd:
+      name: mongod
+      state: "{{ 'restarted' if config_result.changed else 'started' }}"
