@@ -28,14 +28,14 @@ This repo contains the ansible playbooks for installing and configuring the comp
 ## TODOs
 
 -   [ ] Usage instructions
--   all_install_as_containers
--   molecule tests
--   smi bashrc
--   smi example user setup (as a script)
--   checks for duplicated uid/gids
--   Separate repo with
-    -   Packer images for azure & virtualbox
-    -   Tf scripts
--   Can we also replicate the RC/researcher environments for testing?
-    -   file copy tool
-    -   DicomRepopulator
+-   [ ] all_install_as_containers
+-   [ ] molecule tests
+-   [ ] smi bashrc
+-   [ ] smi example user setup (as a script)
+-   [ ] checks for duplicated uid/gids
+-   [ ] Separate repo with
+    -   [ ] Packer images for azure & virtualbox
+    -   [ ] Tf scripts
+-   [ ] Can we also replicate the RC/researcher environments for testing?
+    -   [ ] file copy tool
+    -   [ ] DicomRepopulator
